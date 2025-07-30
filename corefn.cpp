@@ -11,7 +11,7 @@ extern NBlock* programBlock;
 llvm::Function* createPrintfFunction(CodeGenContext& context)
 {
     std::vector<llvm::Type*> printf_arg_types;
-    printf_arg_types.push_back(llvm::Type::getInt8PtrTy(MyContext)); //char*
+    printf_arg_types.push_back(llvm::Type::getInt8Ty(MyContext)); //char*
 
     std::cout << "printf" << std::endl;
 
@@ -69,7 +69,7 @@ void createEchoFunction(CodeGenContext& context, llvm::Function* printfFn)
     toPrint->setName("toPrint");
     args.push_back(toPrint);
     
-	CallInst *call = CallInst::Create(printfFn, makeArrayRef(args), "", bblock);
+	CallInst *call = CallInst::Create(printfFn, ArrayRef(args), "", bblock);
 	ReturnInst::Create(MyContext, bblock);
 	context.popBlock();
 }
